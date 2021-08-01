@@ -20,8 +20,14 @@ const Client = {
                 })
             });
     },
-    getDriver(driverId) {
-        return axios.get(`/fixtures/driver_${driverId}.json`);
+    async getDriver(driverId) {
+        // little more realism like above for direct navigation to driver details
+        const req = await axios.get(`/fixtures/driver_${driverId}.json`)
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(req)
+            }, 2000)
+        })
     }
 };
 
