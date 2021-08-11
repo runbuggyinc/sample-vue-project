@@ -2,13 +2,15 @@
     <div class="component">
         <div class="container">
             <h1>Drivers</h1>
-            {{result}}
-            <div v-if="result !== 'loading...'">
+            <div v-if="result !== undefined">
                 <div v-for="driver in result" :key="`driver-${driver.id}`" >
                     <ul>
                         <li><RouterLink :to="`/driver/${driver.id}`">{{ driver.first_name }}</RouterLink></li>
                     </ul>
                 </div>
+            </div>
+            <div v-else>
+                <p>Loading...</p>
             </div>
         </div>
     </div>
@@ -33,15 +35,11 @@
                         this.result = result;
                     })
             },
-            isLoading() {
-                this.result = "loading..."
-            }
         },
         computed: {
 
         },
         created() {
-            this.isLoading();
         },
         mounted() {
             this.getDrivers();
