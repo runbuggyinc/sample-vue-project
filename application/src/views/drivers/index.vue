@@ -1,17 +1,28 @@
 <template>
     <div class="component">
-        <div class="container--fluid">
+        <div class="container">
             <h1>Drivers</h1>
-            {{ result }}
+            {{result}}
+            <div class="row" v-if="result !== 'loading...'">
+                <div v-for="(driver, id) in result" :key="id"  class="col col-4">
+                    <VCard elevation="3">
+                        <VCardTitle>{{ driver.first_name }}</VCardTitle>
+                        <VListItemAvatar tile size="80" color="grey" />
+                    </VCard>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script type="text/babel">
-    import DriversService from '@/services/drivers'
+    import DriversService from '@/services/drivers';
+    import { VCard } from 'vuetify/lib';
+    import { VCardTitle } from 'vuetify/lib';
+    import { VListItemAvatar } from 'vuetify/lib';
 
     export default {
-        name: 'views-orders-index',
+        name: 'views-driver',
         watch: {},
         props: {},
         data() {
@@ -26,11 +37,15 @@
                         this.result = result;
                     })
             },
+            isLoading() {
+                this.result = "loading..."
+            }
         },
         computed: {
 
         },
         created() {
+            this.isLoading();
         },
         mounted() {
             this.getDrivers();
@@ -38,12 +53,11 @@
         beforeDestroy() {
         },
         mixins: [],
-        components: {}
+        components: {
+            VCard,
+            VCardTitle,
+            VListItemAvatar
+        }
     }
 
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-
-</style>
