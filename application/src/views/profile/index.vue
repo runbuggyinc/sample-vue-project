@@ -1,15 +1,8 @@
 <template>
     <div class="component">
         <div class="container">
-            <h1>Drivers</h1>
-            {{result}}
-            <div v-if="result !== 'loading...'">
-                <div v-for="driver in result" :key="`driver-${driver.id}`" >
-                    <ul>
-                        <li><RouterLink :to="`/driver/${driver.id}`">{{ driver.first_name }}</RouterLink></li>
-                    </ul>
-                </div>
-            </div>
+            <router-link to="/"><< All drivers</router-link>
+          <h1>{{result.id}} | {{result.first_name}} - {{result.last_name}}</h1>
         </div>
     </div>
 </template>
@@ -18,7 +11,7 @@
     import DriversService from '@/services/drivers';
 
     export default {
-        name: 'views-driver',
+        name: 'views-driver-profile',
         watch: {},
         props: {},
         data() {
@@ -28,9 +21,10 @@
         },
         methods: {
             getDrivers() {
-                return DriversService.getDrivers()
+                return DriversService.getDriver(this.$route.params.id)
                     .then((result) => {
                         this.result = result;
+                        console.log(this.result);
                     })
             },
             isLoading() {
@@ -41,7 +35,7 @@
 
         },
         created() {
-            this.isLoading();
+            console.log(this.$route.params.id);
         },
         mounted() {
             this.getDrivers();
