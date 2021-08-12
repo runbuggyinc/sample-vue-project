@@ -1,14 +1,21 @@
 <template>
     <div class="component">
-        <div class="container">
+        <div v-if="result !== undefined" class="container">
             <router-link to="/"><< All drivers</router-link>
           <h1>{{result.id}} | {{result.first_name}} - {{result.last_name}}</h1>
+        </div>
+        <div class="pa-6 ma-2" v-else>
+            <VProgressCircular
+                indeterminate
+                color="primary"
+            ></VProgressCircular>
         </div>
     </div>
 </template>
 
 <script type="text/babel">
     import DriversService from '@/services/drivers';
+    import { VProgressCircular } from 'vuetify/lib';
 
     export default {
         name: 'views-driver-profile',
@@ -44,6 +51,7 @@
         },
         mixins: [],
         components: {
+            VProgressCircular
         }
     }
 
