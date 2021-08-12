@@ -5,12 +5,17 @@
             <div v-if="result !== undefined">
                 <VTextField
                     v-model="search"
-                    append-icon="mdi-magnify"
                     label="Search"
                     single-line
                     hide-details
                 ></VTextField>
-                <VDataTable hide-default-header :headers="headers" :items="result" :search="search" @click:row="rowClick" />                    
+                <VDataTable 
+                    hide-default-header 
+                    :headers="headers" 
+                    :items="result" 
+                    :search="search" 
+                    @click:row="rowClick" 
+                />                    
             </div>
             <div class="pa-6 ma-2" v-else>
                 <VProgressCircular
