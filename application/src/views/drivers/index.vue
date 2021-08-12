@@ -3,11 +3,14 @@
         <div class="container">
             <h1>Drivers</h1>
             <div v-if="result !== undefined">
-                <div v-for="driver in result" :key="`driver-${driver.id}`" >
-                    <ul>
-                        <li><RouterLink :to="`/driver/${driver.id}`">{{ driver.first_name }}</RouterLink></li>
-                    </ul>
-                </div>
+                <VTextField
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details
+                ></VTextField>
+                <VDataTable hide-default-header :headers="headers" :items="result" :search="search" @click:row="rowClick" />                    
             </div>
             <div class="pa-6 ma-2" v-else>
                 <VProgressCircular
@@ -21,6 +24,8 @@
 
 <script type="text/babel">
     import DriversService from '@/services/drivers';
+    import { VDataTable } from 'vuetify/lib';
+    import { VTextField } from 'vuetify/lib';
     import { VProgressCircular } from 'vuetify/lib';
 
     export default {
@@ -29,7 +34,14 @@
         props: {},
         data() {
             return {
-                result: undefined
+                result: undefined,
+                search: '',
+                headers: [
+                    {
+                        text: 'name',
+                        value: 'first_name'
+                    }
+                ]
             }
         },
         methods: {
@@ -39,6 +51,9 @@
                         this.result = result;
                     })
             },
+            rowClick (item) {
+                this.$router.push(`driver/${item.id}`)
+            }
         },
         computed: {
 
@@ -52,7 +67,9 @@
         },
         mixins: [],
         components: {
-            VProgressCircular
+            VProgressCircular,
+            VDataTable,
+            VTextField
         }
     }
 
