@@ -9,8 +9,11 @@
                     </ul>
                 </div>
             </div>
-            <div v-else>
-                <p>Loading...</p>
+            <div class="pa-6 ma-2" v-else>
+                <VProgressCircular
+                    indeterminate
+                    color="primary"
+                ></VProgressCircular>
             </div>
         </div>
     </div>
@@ -18,6 +21,7 @@
 
 <script type="text/babel">
     import DriversService from '@/services/drivers';
+    import { VProgressCircular } from 'vuetify/lib';
 
     export default {
         name: 'views-driver',
@@ -48,6 +52,7 @@
         },
         mixins: [],
         components: {
+            VProgressCircular
         }
     }
 
