@@ -1,17 +1,15 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import HelloWorld from './modules/hello-world'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
+import Drivers from './modules/_boilerplate/drivers';
+import Styles from './modules/_boilerplate/styles';
 
 Vue.use(Vuex);
 
-const getters = {};
-
-const actions = {};
-
 export default new Vuex.Store({
-    actions: actions,
-    getters: getters,
-    modules: {
-        HelloWorld
-    }
-})
+  modules: {
+    Drivers,
+    Styles,
+  },
+  plugins: [createPersistedState()],
+});
