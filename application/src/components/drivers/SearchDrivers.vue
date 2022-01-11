@@ -23,8 +23,10 @@ export default {
   watch: {
     query(newQuery) {
       const probableDrivers = [];
+      let lowerCaseDriverName = ''
       this.drivers.forEach((element) => {
-        if (`${element.first_name} ${element.last_name}`.toLowerCase().indexOf(newQuery.toLowerCase()) > -1) {
+          lowerCaseDriverName = `${element.first_name} ${element.last_name}`.toLowerCase()
+        if (lowerCaseDriverName.indexOf(newQuery.toLowerCase()) > -1) {
           probableDrivers.push(element);
         }
       });
