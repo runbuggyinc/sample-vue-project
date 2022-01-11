@@ -8,11 +8,12 @@
         class="mx-auto"
       />
       <v-card width="300" tile v-else>
+        <search-drivers @searched-drivers="(e) => (driverList = e)" :drivers="drivers" />
         <v-list dense>
           <v-subheader>Drivers</v-subheader>
           <v-list-item-group color="primary">
             <driver-profile
-              v-for="(driver, index) in drivers"
+              v-for="(driver, index) in driverList"
               :key="index"
               v-bind="{
                 firstName: driver.first_name,
@@ -28,27 +29,34 @@
 </template>
 
 <script type="text/babel">
-import { mapState } from "vuex"
-import * as driverTypes from '@/store/modules/drivers/types'
+import { mapState } from "vuex";
+import * as driverTypes from "@/store/modules/drivers/types";
 
 export default {
   name: "views-orders-index",
   data() {
     return {
       loading: false,
+      driverList: [],
     };
   },
   computed: {
-      ...mapState({
-          drivers: state => state.drivers.drivers
-      })
+    ...mapState({
+      drivers: (state) => state.drivers.drivers,
+    }),
+  },
+  watch: {
+    drivers(newValue) {
+      this.driverList = newValue;
+    },
   },
   methods: {
     async getDrivers() {
       this.loading = true;
-      await this.$store.dispatch(`${driverTypes.MODULE_NAME}/${driverTypes.GET_DRIVERS}`)
+      await this.$store.dispatch(
+        `${driverTypes.MODULE_NAME}/${driverTypes.GET_DRIVERS}`
+      );
       this.loading = false;
-
     },
   },
   mounted() {
@@ -56,6 +64,7 @@ export default {
   },
   components: {
     DriverProfile: () => import("@/components/drivers/DriverProfile.vue"),
+    SearchDrivers: () => import("@/components/drivers/SearchDrivers.vue"),
   },
 };
 </script>
