@@ -8,6 +8,7 @@ import DriversLayout from '@/layouts/drivers'
 
 // Views
 import DriversIndex from '@/views/drivers'
+import ViewDriver from '@/views/drivers/views/_ViewDriver.vue'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ const router = new Router({
                     path: '/',
                     name: 'drivers-index',
                     component: DriversIndex
+                },
+                {
+                    path: '/driver/:id',
+                    name: 'view-driver',
+                    component: ViewDriver
                 }
             ]
         }
